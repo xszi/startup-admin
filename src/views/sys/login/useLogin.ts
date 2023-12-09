@@ -15,6 +15,7 @@ const currentState = ref(LoginStateEnum.LOGIN)
 
 export function useLoginState() {
   function setLoginState(state: LoginStateEnum) {
+    console.log(222222)
     currentState.value = state
   }
 
@@ -23,6 +24,8 @@ export function useLoginState() {
   function handleBackLogin() {
     setLoginState(LoginStateEnum.LOGIN)
   }
+
+  console.log(1111)
 
   return { setLoginState, getLoginState, handleBackLogin }
 }

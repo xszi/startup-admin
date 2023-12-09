@@ -92,6 +92,8 @@ const transform: AxiosTransform = {
       config.url = `${urlPrefix}${config.url}`
     }
 
+    console.log(apiUrl, config.url, 'hahahh')
+
     if (apiUrl && isString(apiUrl)) {
       config.url = `${apiUrl}${config.url}`
     }
