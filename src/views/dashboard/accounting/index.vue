@@ -1,15 +1,8 @@
 <template>
   <PageWrapper>
-    <template #headerContent> <WorkbenchHeader /> </template>
-    <BasicTable @register="registerTable" @form-reset="formReset" @row-click="rowClick">
+    <BasicTable @register="registerTable">
       <template #toolbar>
         <a-button type="primary" @click="handleAdd"> 新增 </a-button>
-        <export-button
-          v-auth="'informationExpress:push-record:btn:export'"
-          :use-export="handleExport"
-          :get-action="getForm"
-          :get-columns="getColumns"
-        />
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'operate'">
@@ -53,8 +46,8 @@
   import { ref } from 'vue'
   import { PageWrapper } from '/@/components/Page'
   import { columns } from './data'
-  import { BasicTable, useTable } from '/@/components/Table'
-  import { fetchRecordList } from '/@/api/dashboard/accounting'
+  import { BasicTable, useTable, TableAction } from '/@/components/Table'
+  // import { fetchRecordList } from '/@/api/dashboard/accounting'
   const [registerTable, { reload, getForm, getColumns, setTableData }] = useTable({
     showSearchHistory: true,
     rowKey: 'id',
@@ -79,14 +72,7 @@
       align: 'center',
     },
     // api: fetchRecordList,
-    dataSource: [
-      {
-        time: '2023-12-10',
-        type: 'food',
-        number: '10',
-        remark: 'hahah',
-      },
-    ],
+    dataSource: [],
     autoAppendComCol: false,
     immediate: true,
     showIndexColumn: false,
@@ -98,7 +84,21 @@
 
   const loading = ref(true)
 
+  const handleAdd = () => {}
+  const handleEdit = () => {}
+  const handleClose = () => {}
+  const handleDelete = () => {}
+  const handleViewDetail = () => {}
+
   setTimeout(() => {
     loading.value = false
+    setTableData([
+      {
+        time: '1',
+        type: 'food',
+        number: '10',
+        remark: 'hahha',
+      },
+    ])
   }, 1500)
 </script>
