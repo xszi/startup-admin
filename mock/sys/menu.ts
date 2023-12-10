@@ -38,6 +38,18 @@ const dashboardRoute = {
         icon: 'bx:bx-home',
       },
     },
+    {
+      path: 'accounting',
+      name: 'Accounting',
+      component: '/dashboard/accounting/index',
+      meta: {
+        hideMenu: true,
+        hideBreadcrumb: true,
+        title: 'routes.dashboard.accounting',
+        currentActiveMenu: '/dashboard',
+        icon: 'bx:bx-home',
+      },
+    },
   ],
 }
 

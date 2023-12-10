@@ -51,3 +51,23 @@ export interface UploadFileParams {
   filename?: string
   [key: string]: any
 }
+
+export interface IPageData<T> {
+  results: T[]
+  total: number
+  pageSize: number
+  pageNo: number
+}
+
+export type TPageParams<T> = {
+  [key in keyof T]: T[key]
+} & {
+  pageReq: {
+    pageNo: number
+    pageSize: number
+    orderByItems?: {
+      asc?: boolean
+      column?: string
+    }
+  }
+}

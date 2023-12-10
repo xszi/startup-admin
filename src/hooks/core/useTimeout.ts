@@ -43,3 +43,4 @@ export function useTimeoutRef(wait: number) {
 
   return { readyRef, stop, start }
 }
+export const useDelay = (ms = 1) => new Promise((resolve) => setTimeout(resolve, ms))

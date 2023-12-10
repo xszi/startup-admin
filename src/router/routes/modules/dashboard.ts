@@ -31,6 +31,14 @@ const dashboard: AppRouteModule = {
         title: t('routes.dashboard.workbench'),
       },
     },
+    {
+      path: 'accounting',
+      name: 'Accounting',
+      component: () => import('/@/views/dashboard/accounting/index.vue'),
+      meta: {
+        title: t('routes.dashboard.accounting'),
+      },
+    },
   ],
 }
 
