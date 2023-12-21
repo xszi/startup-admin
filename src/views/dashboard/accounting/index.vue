@@ -40,15 +40,19 @@
         </template>
       </template>
     </BasicTable>
+    <AccountModal @register="registerModal" />
   </PageWrapper>
 </template>
 <script lang="ts" setup>
   import { ref } from 'vue'
   import { PageWrapper } from '/@/components/Page'
-  import { columns } from './data'
+  import AccountModal from './components/AccountModal.vue'
+  import { columns } from './components/data'
+  import { useModal } from '/@/components/Modal'
+  const [registerModal, { openModal }] = useModal()
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
   // import { fetchRecordList } from '/@/api/dashboard/accounting'
-  const [registerTable, { reload, getForm, getColumns, setTableData }] = useTable({
+  const [registerTable, { reload, setTableData }] = useTable({
     showSearchHistory: true,
     rowKey: 'id',
     columns,
@@ -83,9 +87,13 @@
   })
 
   const loading = ref(true)
+  const handleAdd = (record: Recordable) => {
+    openModal(true, { payload: record, handler: reload, title: '新增' })
+  }
 
-  const handleAdd = () => {}
-  const handleEdit = () => {}
+  const handleEdit = (record: Recordable) => {
+    openModal(true, { payload: record, handler: reload, title: '编辑' })
+  }
   const handleClose = () => {}
   const handleDelete = () => {}
   const handleViewDetail = () => {}
