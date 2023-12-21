@@ -7,7 +7,7 @@ import { PageEnum } from '/@/enums/pageEnum'
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum'
 import { getAuthCache, setAuthCache } from '/@/utils/auth'
 import { GetUserInfoModel, LoginParams } from '/@/api/sys/model/userModel'
-import { doLogout, getUserInfo, loginApi } from '/@/api/sys/user'
+import { getUserInfo, loginApi } from '/@/api/sys/user'
 import { useI18n } from '/@/hooks/web/useI18n'
 import { useMessage } from '/@/hooks/web/useMessage'
 import { router } from '/@/router'
@@ -102,7 +102,8 @@ export const useUserStore = defineStore({
     async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
       if (!this.getToken) return null
       // get user info
-      const userInfo = await this.getUserInfoAction()
+      // const userInfo = await this.getUserInfoAction()
+      const userInfo: any = null
 
       const sessionTimeout = this.sessionTimeout
       if (sessionTimeout) {
@@ -139,13 +140,13 @@ export const useUserStore = defineStore({
      * @description: logout
      */
     async logout(goLogin = false) {
-      if (this.getToken) {
-        try {
-          await doLogout()
-        } catch {
-          console.log('注销Token失败')
-        }
-      }
+      // if (this.getToken) {
+      //   try {
+      //     await doLogout()
+      //   } catch {
+      //     console.log('注销Token失败')
+      //   }
+      // }
       this.setToken(undefined)
       this.setSessionTimeout(false)
       this.setUserInfo(null)
