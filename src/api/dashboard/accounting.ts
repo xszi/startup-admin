@@ -4,10 +4,23 @@ import { ErrorMessageMode } from '/#/axios'
 import { ExceptionReps, ExceptionReq } from './model/accountingModel'
 
 //记账记录查询
-export function fetchRecordList(params: ExceptionReq, mode: ErrorMessageMode = 'message') {
+export function fetchAccountList(params: ExceptionReq, mode: ErrorMessageMode = 'none') {
   return defHttp.post<ExceptionReps>(
     {
-      url: `/exceptionInfo/pc/qryRecordsPage`,
+      url: `/v1/account/qryAccountPage`,
+      params,
+    },
+    {
+      errorMessageMode: mode,
+    },
+  )
+}
+
+//记账记录查询
+export function addAccount(params: ExceptionReq, mode: ErrorMessageMode = 'none') {
+  return defHttp.post<ExceptionReps>(
+    {
+      url: `/v1/account/addAccount`,
       params,
     },
     {

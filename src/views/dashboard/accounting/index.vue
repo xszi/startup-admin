@@ -51,7 +51,7 @@
   import { useModal } from '/@/components/Modal'
   const [registerModal, { openModal }] = useModal()
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
-  // import { fetchRecordList } from '/@/api/dashboard/accounting'
+  import { fetchAccountList } from '/@/api/dashboard/accounting'
   const [registerTable, { reload, setTableData }] = useTable({
     showSearchHistory: true,
     rowKey: 'id',
@@ -75,8 +75,8 @@
       dataIndex: 'operate',
       align: 'center',
     },
-    // api: fetchRecordList,
-    dataSource: [],
+    api: fetchAccountList,
+    // dataSource: [],
     autoAppendComCol: false,
     immediate: true,
     showIndexColumn: false,

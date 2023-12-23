@@ -36,21 +36,21 @@ export const columns: BasicColumn[] = [
   },
 ]
 
-export const workOrderSchema: FormSchema[] = [
+export const accountSchema: FormSchema[] = [
   {
-    field: 'time',
+    field: 'create_date',
     label: '时间',
     colProps: { span: 12 },
     component: 'Input',
   },
   {
-    field: 'type',
+    field: 'expense_type',
     label: '消费类型',
     colProps: { span: 12 },
     component: 'Input',
   },
   {
-    field: 'number',
+    field: 'expense_amount',
     label: '消费金额',
     colProps: { span: 12 },
     component: 'Input',
