@@ -44,7 +44,7 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
   import { PageWrapper } from '/@/components/Page'
   import AccountModal from './components/AccountModal.vue'
   import { columns } from './components/data'
@@ -75,8 +75,13 @@
       dataIndex: 'operate',
       align: 'center',
     },
-    api: fetchAccountList,
-    // dataSource: [],
+    // TODO
+    // api: fetchAccountList,
+    // afterFetch: (data) => {
+    //   console.log(data, 'ddd')
+    //   return data
+    // },
+    dataSource: [],
     autoAppendComCol: false,
     immediate: true,
     showIndexColumn: false,
@@ -97,16 +102,25 @@
   const handleClose = () => {}
   const handleDelete = () => {}
   const handleViewDetail = () => {}
+  onMounted(async () => {
+    const params: any = {
+      pageSize: 10,
+      page: 1,
+    }
+    const res: any = await fetchAccountList(params)
+    setTableData(res.rows)
+    console.log(res, 'ree')
+  })
 
-  setTimeout(() => {
-    loading.value = false
-    setTableData([
-      {
-        time: '1',
-        type: 'food',
-        number: '10',
-        remark: 'hahha',
-      },
-    ])
-  }, 1500)
+  // setTimeout(() => {
+  //   loading.value = false
+  //   setTableData([
+  //     {
+  //       time: '1',
+  //       type: 'food',
+  //       number: '10',
+  //       remark: 'hahha',
+  //     },
+  //   ])
+  // }, 1500)
 </script>

@@ -15,18 +15,18 @@ import { BasicColumn } from '/@/components/Table'
 export const columns: BasicColumn[] = [
   {
     title: '时间',
-    dataIndex: 'time',
+    dataIndex: 'create_date',
     fixed: 'left',
     width: 200,
   },
   {
     title: '消费类型',
-    dataIndex: 'type',
+    dataIndex: 'expense_type',
     width: 150,
   },
   {
     title: '消费金额',
-    dataIndex: 'number',
+    dataIndex: 'expense_amount',
     width: 150,
   },
   {
