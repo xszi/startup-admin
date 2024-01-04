@@ -41,7 +41,7 @@ export const accountSchema: FormSchema[] = [
     field: 'create_date',
     label: '时间',
     colProps: { span: 12 },
-    component: 'Input',
+    component: 'DatePicker',
   },
   {
     field: 'expense_type',

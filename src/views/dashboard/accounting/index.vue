@@ -21,11 +21,6 @@
                 onClick: handleEdit.bind(null, record),
               },
               {
-                label: '详情',
-                auth: 'informationExpress:push-record:btn:detail',
-                onClick: handleViewDetail.bind(null, record),
-              },
-              {
                 label: '删除',
                 color: 'error',
                 auth: 'informationExpress:push-record:btn:delete',
@@ -44,7 +39,6 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue'
   import { PageWrapper } from '/@/components/Page'
   import AccountModal from './components/AccountModal.vue'
   import { columns } from './components/data'
@@ -52,7 +46,7 @@
   const [registerModal, { openModal }] = useModal()
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
   import { fetchAccountList } from '/@/api/dashboard/accounting'
-  const [registerTable, { reload, setTableData }] = useTable({
+  const [registerTable, { reload }] = useTable({
     showSearchHistory: true,
     rowKey: 'id',
     columns,
@@ -75,13 +69,7 @@
       dataIndex: 'operate',
       align: 'center',
     },
-    // TODO
-    // api: fetchAccountList,
-    // afterFetch: (data) => {
-    //   console.log(data, 'ddd')
-    //   return data
-    // },
-    dataSource: [],
+    api: fetchAccountList,
     autoAppendComCol: false,
     immediate: true,
     showIndexColumn: false,
@@ -91,7 +79,6 @@
     bordered: false,
   })
 
-  const loading = ref(true)
   const handleAdd = (record: Recordable) => {
     openModal(true, { payload: record, handler: reload, title: '新增' })
   }
@@ -101,26 +88,9 @@
   }
   const handleClose = () => {}
   const handleDelete = () => {}
-  const handleViewDetail = () => {}
-  onMounted(async () => {
-    const params: any = {
-      pageSize: 10,
-      page: 1,
-    }
-    const res: any = await fetchAccountList(params)
-    setTableData(res.rows)
-    console.log(res, 'ree')
-  })
-
-  // setTimeout(() => {
-  //   loading.value = false
-  //   setTableData([
-  //     {
-  //       time: '1',
-  //       type: 'food',
-  //       number: '10',
-  //       remark: 'hahha',
-  //     },
-  //   ])
-  // }, 1500)
 </script>
+<style lang="less" scoped>
+  :deep(.vben-page-wrapper-content) {
+    margin: 10px;
+  }
+</style>

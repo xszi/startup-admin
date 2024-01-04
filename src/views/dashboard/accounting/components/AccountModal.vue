@@ -29,6 +29,7 @@
 </template>
 
 <script lang="ts" setup>
+  import moment from 'moment'
   import { ref } from 'vue'
   import { BasicForm, useForm, FormActionType } from '/@/components/Form'
   import { BasicModal, useModalInner } from '/@/components/Modal'
@@ -70,10 +71,7 @@
     async ({ payload, handler, title }) => {
       modalTitle.value = title
       form.value?.resetFields()
-      //   formModel.value.id = payload.id
-      // await initUserOptions();
       await initViewModel(payload)
-
       reloadTable = handler
     },
   )
@@ -85,8 +83,8 @@
       const params: any = {
         ...form.value?.getFieldsValue(),
       }
-      const res = await addAccount(params)
-      console.log(res, 'xxxx')
+      params.create_date = moment(params.create_date).format('YYYY-MM-DD')
+      await addAccount(params)
       createMessage.success('操作成功')
       await reloadTable?.()
       closeModal()
