@@ -4,7 +4,7 @@ export type ExceptionReq = TPageParams<{
   /**
    * 模板id
    */
-  templateId?: string
+  create_id?: string
   /**
    * 创建人
    */

@@ -9,21 +9,12 @@
           <TableAction
             :actions="[
               {
-                label: '关闭',
-                ifShow: +record.status !== 3, // 2已确认 3已关闭
-                auth: 'informationExpress:push-record:btn:confirmClose',
-                onClick: handleClose.bind(null, record),
-              },
-              {
                 label: '编辑',
-                ifShow: +record.status !== 2 && +record.status !== 3,
-                auth: 'informationExpress:push-record:btn:detail',
                 onClick: handleEdit.bind(null, record),
               },
               {
                 label: '删除',
                 color: 'error',
-                auth: 'informationExpress:push-record:btn:delete',
                 popConfirm: {
                   title: '是否确认删除？',
                   placement: 'left',
@@ -43,9 +34,11 @@
   import AccountModal from './components/AccountModal.vue'
   import { columns } from './components/data'
   import { useModal } from '/@/components/Modal'
+  import { useMessage } from '/@/hooks/web/useMessage'
   const [registerModal, { openModal }] = useModal()
   import { BasicTable, useTable, TableAction } from '/@/components/Table'
-  import { fetchAccountList } from '/@/api/dashboard/accounting'
+  import { fetchAccountList, deleteAccount } from '/@/api/dashboard/accounting'
+  const { createMessage } = useMessage()
   const [registerTable, { reload }] = useTable({
     showSearchHistory: true,
     rowKey: 'id',
@@ -86,8 +79,13 @@
   const handleEdit = (record: Recordable) => {
     openModal(true, { payload: record, handler: reload, title: '编辑' })
   }
-  const handleClose = () => {}
-  const handleDelete = () => {}
+
+  const handleDelete = async (record) => {
+    console.log(record, 'record')
+    await deleteAccount({ create_id: record.create_id })
+    createMessage.success('操作成功')
+    reload()
+  }
 </script>
 <style lang="less" scoped>
   :deep(.vben-page-wrapper-content) {

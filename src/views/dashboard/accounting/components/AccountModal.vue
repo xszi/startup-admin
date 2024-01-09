@@ -35,7 +35,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal'
   import { accountSchema } from './data'
   import { useMessage } from '/@/hooks/web/useMessage'
-  import { addAccount } from '/@/api/dashboard/accounting'
+  import { addAccount, editAccount } from '/@/api/dashboard/accounting'
 
   const [
     registerBasicForm,
@@ -50,6 +50,7 @@
   const { createMessage } = useMessage()
 
   const formModel = ref({
+    create_id: '',
     create_date: '',
     expense_type: '',
     expense_amount: '',
@@ -59,10 +60,19 @@
   const initViewModel = async (payload) => {
     if (!payload) {
       formModel.value = {
+        create_id: '',
         create_date: '',
         expense_type: '',
         expense_amount: '',
         remark: '',
+      }
+    } else {
+      formModel.value = {
+        create_id: payload.create_id,
+        create_date: payload.create_date,
+        expense_type: payload.expense_type,
+        expense_amount: payload.expense_amount,
+        remark: payload.remark,
       }
     }
   }
@@ -84,7 +94,13 @@
         ...form.value?.getFieldsValue(),
       }
       params.create_date = moment(params.create_date).format('YYYY-MM-DD')
-      await addAccount(params)
+      if (formModel.value.create_id) {
+        params.create_id = formModel.value.create_id
+        await editAccount(params)
+      } else {
+        Reflect.deleteProperty(params, 'create_id')
+        await addAccount(params)
+      }
       createMessage.success('操作成功')
       await reloadTable?.()
       closeModal()

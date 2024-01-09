@@ -84,3 +84,8 @@ pnpm build
 ## License
 
 [MIT © Vben-2020](./LICENSE)
+
+## TODO
+
+- 在服务端下载 nginx, 部署 admin 项目实现接口联通
+- 发布更新版本日志
