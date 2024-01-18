@@ -11,6 +11,19 @@ import { BasicColumn } from '/@/components/Table'
 //   最近半年: [moment().startOf('day').subtract(6, 'months'), moment()],
 // };
 
+export const searchFormSchema: FormSchema[] = [
+  {
+    field: 'create_date',
+    label: '创建时间',
+    component: 'DatePicker',
+    componentProps: {
+      showTime: true,
+      format: 'YYYY-MM-DD',
+    },
+    colProps: { span: 8 },
+  },
+]
+
 // 表格列
 export const columns: BasicColumn[] = [
   {

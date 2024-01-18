@@ -30,9 +30,10 @@
   </PageWrapper>
 </template>
 <script lang="ts" setup>
+  import moment from 'moment'
   import { PageWrapper } from '/@/components/Page'
   import AccountModal from './components/AccountModal.vue'
-  import { columns } from './components/data'
+  import { columns, searchFormSchema } from './components/data'
   import { useModal } from '/@/components/Modal'
   import { useMessage } from '/@/hooks/web/useMessage'
   const [registerModal, { openModal }] = useModal()
@@ -49,18 +50,22 @@
     formConfig: {
       labelWidth: 90,
       labelAlign: 'right',
-      // schemas: searchFormSchema,
+      schemas: searchFormSchema,
       autoSubmitOnEnter: true,
-      fieldMapToTime: [
-        ['createTimeRange', ['createStartTime', 'createEndTime'], void 0, false],
-        ['stopTimeRange', ['stopStartTime', 'stopEndTime'], void 0, false],
-      ],
     },
     actionColumn: {
       width: 175,
       title: '操作',
       dataIndex: 'operate',
       align: 'center',
+    },
+    beforeFetch: (params) => {
+      if (params.create_date) {
+        params.create_date = moment(params.create_date).format('YYYY-MM-DD')
+      } else {
+        params.create_date = ''
+      }
+      return params
     },
     api: fetchAccountList,
     autoAppendComCol: false,
